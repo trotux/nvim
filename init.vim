@@ -10,12 +10,6 @@ source $HOME/.config/nvim/init.vim.d/vim-plug.vim
 "
 "-----------------------------------------------------------
 
-" Tagbar
-nmap <C-\> :TagbarToggle<CR>
-let g:tagbar_left = 1
-let g:tagbar_width = 50
-
-
 " NERDTree
 let g:NERDTreeShowHidden=1
 nmap <silent> <F7> :NERDTreeToggle<CR>
@@ -63,6 +57,7 @@ source $HOME/.config/nvim/init.vim.d/which-key.vim
 source $HOME/.config/nvim/init.vim.d/fzf.vim
 source $HOME/.config/nvim/init.vim.d/floaterm.vim
 source $HOME/.config/nvim/init.vim.d/coc.vim
+source $HOME/.config/nvim/init.vim.d/tagbar.vim
 
 " ----------------------------------------------------------
 " " Vim settings
@@ -241,6 +236,7 @@ set foldlevel=1 " closed fold by default
 
 " Turn off backup files
 set nobackup
+set nowritebackup
 
 " Turn off swap files
 set noswapfile
@@ -253,6 +249,9 @@ set splitright
 
 " Fix CVE-2019-12735
 set nomodeline
+
+" Makes popup menu smaller
+set pumheight=10
 
 let g:miniBufExplTabWrap = 1 " make tabs show complete (no broken on two lines)
 let g:miniBufExplModSelTarget = 1 " If you use other explorers like TagList you can (As of 6.2.8) set it at 1:
@@ -373,6 +372,10 @@ vnoremap <F5> <Esc>:buffers<CR>:buffer<Space>
 " Ctrl-P \ Ctrl-N for next\prev buffers
 nnoremap <silent> <C-P> :bp<cr>
 nnoremap <silent> <C-N> :bn<cr>
+" TAB in general mode will move to text buffer
+nnoremap <TAB> :bnext<CR>
+" SHIFT-TAB will go back
+nnoremap <S-TAB> :bprevious<CR>
 
 " Use ctrl-h/j/k/l to switch between splits
 nnoremap <A-Right> <C-W><Right>
@@ -383,6 +386,12 @@ inoremap <A-Right> <Esc><C-W><Right>
 inoremap <A-Left> <Esc><C-W><Left>
 inoremap <A-Up> <Esc><C-W><Up>
 inoremap <A-Down> <Esc><C-W><Down>
+
+" Use alt + hjkl to resize windows
+nnoremap <A-j>    :resize -2<CR>
+nnoremap <A-k>    :resize +2<CR>
+nnoremap <A-h>    :vertical resize -2<CR>
+nnoremap <A-l>    :vertical resize +2<CR>
 
 " Tabs
 " map <S-TAB> :tabprevious<CR>
@@ -450,6 +459,8 @@ nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
 " Space for open/close folds if exist
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 vnoremap <Space> zf
+
+"nmap yr :call system("ssh $machineA_IP pbcopy", @*)<CR>
 
 " nnoremap <silent><A-j> :set paste<CR>m`o<Esc>``:set nopaste<CR>
 " nnoremap <silent><A-k> :set paste<CR>m`O<Esc>``:set nopaste<CR>
