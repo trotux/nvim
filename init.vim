@@ -86,7 +86,7 @@ if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
 
-luafile $HOME/.config/nvim/lua/plug-colorizer.lua
+"luafile $HOME/.config/nvim/lua/plug-colorizer.lua
 
 " Switch on syntax highlighting.
 syntax on
