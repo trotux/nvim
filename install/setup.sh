@@ -44,7 +44,7 @@ install_deps_for_debian() {
 install_ccls_for_debian() {
     cd ${BUILD_PATH} || exit
     if [ ! -e ${BUILD_PATH}/ccls ]; then
-        git clone --depth 1 https://github.com/MaskRay/ccls.git
+        git clone https://github.com/MaskRay/ccls.git
     else
         cd ccls || exit
         git fetch origin
@@ -113,6 +113,61 @@ install_neovim_for_debian() {
     ${SUDO} make install
 }
 
+install_deps_for_ubuntu() {
+    ${SUDO} apt-get update
+    ${SUDO} apt-get install -y \
+        python-pip \
+        python3-pip \
+        editorconfig \
+        exuberant-ctags \
+        silversearcher-ag \
+        clang \
+        libclang-dev \
+        llvm-dev \
+        rapidjson-dev \
+        nodejs \
+        npm
+
+    #Python backend for Neovim 
+    pip install setuptools
+    pip install --upgrade pynvim
+    pip3 install setuptools
+    pip3 install --upgrade pynvim
+#    pip install neovim-remote
+    pip3 install neovim-remote
+}
+
+install_ccls_for_ubuntu() {
+    cd ${BUILD_PATH} || exit
+    if [ ! -e ${BUILD_PATH}/ccls ]; then
+        git clone https://github.com/MaskRay/ccls.git
+    else
+        cd ccls || exit
+        git fetch origin
+    fi
+
+    cd ${BUILD_PATH}/ccls || exit
+    if [ "${OS_NAME}" == "Debian" ]; then
+#        git checkout master
+        git reset --hard 0.20190823.6
+    else
+        git reset --hard 0.20190823.6
+    fi
+
+    #Remove old build dir and .deps dir
+    rm -rf build/
+    rm -rf .deps/
+
+    cmake -GNinja -H. -Bbuild -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_PREFIX_PATH=/usr/lib/llvm-10
+#    cmake --build Release
+    ninja -C build
+    ${SUDO} ninja -C build install
+}
+
+install_neovim_for_ubuntu() {
+    ${SUDO} apt install neovim
+}
+
 setup_neovim() {
     mv ${HOME}/.config/nvim/init.vim ${HOME}/.config/nvim/init.vim.tmp
     mv ${HOME}/.config/nvim/install/init.vim ${HOME}/.config/nvim/init.vim
@@ -138,6 +193,9 @@ install_deps() {
     if [ "${OS_NAME}" == "Debian" ]; then
         install_deps_for_debian
         install_ccls_for_debian
+    elif [ "${OS_NAME}" == "Ubuntu" ]; then
+        install_deps_for_ubuntu
+        install_ccls_for_ubuntu
     else
         echo "Unknown OS, exit"
         exit 1
@@ -147,6 +205,8 @@ install_deps() {
 install_neovim() {
     if [ "${OS_NAME}" == "Debian" ]; then
         install_neovim_for_debian
+    elif [ "${OS_NAME}" == "Ubuntu" ]; then
+        install_neovim_for_ubuntu
     else
         echo "Unknown OS, exit"
         exit 1
