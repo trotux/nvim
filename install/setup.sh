@@ -32,7 +32,7 @@ install_deps_for_debian() {
         nodejs \
         npm
 
-    #Python backend for Neovim 
+    #Python backend for Neovim
     pip install setuptools
     pip install --upgrade pynvim
     pip3 install setuptools
@@ -75,7 +75,7 @@ install_coc_extensions() {
         npm config set proxy ${http_proxy}
     fi
 #    npm config set loglevel verbose
-    ${SUDO} -E npm i -g neovim
+    ${SUDO} -E npm i -g neovim bash-language-server
 
     # Install extensions
     mkdir -p ~/.config/coc/extensions
@@ -185,7 +185,7 @@ move_old_neovim_confug() {
 
 clone_neovim_config() {
     # move old nvim directory if it exists
-    [ -d "$HOME/.config/nvim" ] && move_old_neovim_confug 
+    [ -d "$HOME/.config/nvim" ] && move_old_neovim_confug
     git clone https://github.com/trotux/nvim ${HOME}/.config/nvim
 }
 
