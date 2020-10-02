@@ -73,13 +73,13 @@ set updatetime=250
 set exrc
 set secure
 
-if (has('nvim'))
-  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-endif
+"if (has('nvim'))
+"  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+"endif
 
-if (has("termguicolors"))
-  set termguicolors
-endif
+"if (has("termguicolors"))
+"  set termguicolors
+"endif
 
 " For conceal markers.
 if has('conceal')
