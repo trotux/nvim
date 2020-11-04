@@ -20,7 +20,7 @@ BUILD_PATH="${HOME_PATH}/build"
 echo "BUILD_PATH: ${BUILD_PATH}"
 echo "Os name: ${OS_NAME}"
 
-install_deps_for_debian() {
+install_deps_for_debian_like() {
     ${SUDO} apt-get update
     ${SUDO} apt-get install -y \
         curl \
@@ -53,7 +53,7 @@ install_deps_for_debian() {
     pip3 install neovim-remote
 }
 
-install_ccls_for_debian() {
+install_ccls_for_debian_like() {
     cd ${BUILD_PATH} || exit
     if [ ! -e ${BUILD_PATH}/ccls ]; then
         git clone https://github.com/MaskRay/ccls.git
@@ -136,7 +136,7 @@ clone_neovim_config() {
 
 install_coc_extensions() {
     #Nodejs backend for Neovim
-    if [ -z "${http_proxy:-}" ]; then
+    if [ ! -z "${http_proxy:-}" ]; then
         npm config set https-proxy ${http_proxy}
         npm config set proxy ${http_proxy}
     fi
