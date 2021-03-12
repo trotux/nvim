@@ -28,7 +28,7 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#branch#enabled = 1
 
 " Clang-Format
-let g:clang_format#command = '/usr/bin/clang-format-10'
+let g:clang_format#command = '/usr/bin/clang-format'
 " autocmd FileType c ClangFormatAutoEnable
 
 " EditorConfig
