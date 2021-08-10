@@ -85,6 +85,24 @@ return require('packer').startup(
     disable = false,
   }
 
+  use {
+    'editorconfig/editorconfig-vim',
+    event = "BufRead",
+    setup = function()
+      vim.g.EditorConfig_exec_path = '/usr/bin/editorconfig'
+    end,
+  }
+
+  use {'axelf4/vim-strip-trailing-whitespace'}
+  use {
+    'ntpeters/vim-better-whitespace',
+    event = "BufRead",
+    setup = function()
+      vim.g.better_whitespace_skip_empty_lines=0
+    end,
+    disable = false,
+  }
+
   use {'kyazdani42/nvim-web-devicons'}
 
   -- Buffer line
