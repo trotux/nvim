@@ -3,7 +3,8 @@ local fn = vim.fn
 
 -- Auto install plugin manager
 
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+-- local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local install_path = vim.fn.stdpath('data')..'site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
   execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
@@ -20,10 +21,7 @@ return require('packer').startup(
 
   function()
     -- Let packer manage itself
-    use {
-        'wbthomason/packer.nvim',
-        opt = true
-    }
+    use {'wbthomason/packer.nvim'}
 
     -- Status line
     use {
