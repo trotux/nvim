@@ -128,6 +128,7 @@ return require('packer').startup(
     event = "BufRead",
   }
 
+  use { "jackguo380/vim-lsp-cxx-highlight" }
 
 --  use {
 --    'm-pilia/vim-ccls',
