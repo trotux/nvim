@@ -65,12 +65,13 @@ return function()
           }
         },
         cmd = {"ccls", "--log-file=ccls.log", "-v=1"},
-        root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".ccls", ".git")
-       --  init_options = {
-       --      usePlaceholders = true,
-       --      completeUnimported = true,
-       --      clangdFileStatus = true
-       -- }
+        root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".ccls", ".git"),
+        init_options = {
+            highlight = { lsRanges = true },
+            usePlaceholders = true,
+            completeUnimported = true,
+            clangdFileStatus = true
+        }
      }
 
 
