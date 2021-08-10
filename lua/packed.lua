@@ -195,7 +195,6 @@ return require('packer').startup(
     end,
   }
 
-  use {'bfrg/vim-cpp-modern'}
   use {'rhysd/vim-clang-format'}
 
   use {'liuchengxu/vista.vim'}
