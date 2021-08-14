@@ -13,7 +13,7 @@ end
 
 vim.cmd('packadd packer.nvim')
 
-vim.cmd [[ autocmd BufWritePost packed.lua PackerCompile ]]
+vim.cmd [[ autocmd BufWritePost plugins.lua PackerCompile ]]
 
 -- Plugins configurations
 
@@ -197,7 +197,13 @@ return require('packer').startup(
 
   use {'rhysd/vim-clang-format'}
 
-  use {'liuchengxu/vista.vim'}
+  use {
+    "liuchengxu/vista.vim",
+    config = function()
+        vim.g.vista_cpp_executive = 'nvim_lsp'
+        vim.g.vista_h_executive = 'nvim_lsp'
+    end
+  }
 
   use {
     'rmagatti/goto-preview',
@@ -213,4 +219,48 @@ return require('packer').startup(
     end
   }
 
-  end)
+  -- use {
+  --   'phaazon/hop.nvim',
+  --   as = 'hop',
+  --   config = function()
+  --     -- you can configure Hop the way you like here; see :h hop-config
+  --     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+  --   end
+  -- }
+
+  use {
+    "akinsho/nvim-toggleterm.lua",
+    config = function()
+      require("toggleterm").setup({
+        size = 20,
+        open_mapping = [[<c-\>]],
+        hide_numbers = true, -- hide the number column in toggleterm buffers
+        shade_filetypes = {},
+        shade_terminals = true,
+        shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+        start_in_insert = true,
+        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        persist_size = true,
+        direction = 'float',
+        close_on_exit = true, -- close the terminal window when the process exits
+        float_opts = {
+          border = 'curved',
+          winblend = 0,
+          highlights = {
+            border = "Normal",
+            background = "Normal",
+          },
+        },
+      })
+    end
+  }
+
+--  use {"simrat39/symbols-outline.nvim"}
+
+-- Ranger
+-- use {'kevinhwang91/rnvimr', run = ':make sync'}
+
+-- file trees
+-- use 'kyazdani42/nvim-tree.lua'
+
+end)
