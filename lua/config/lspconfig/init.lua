@@ -64,9 +64,11 @@ return function()
             }
           }
         },
-        cmd = {"ccls", "--log-file=ccls.log", "-v=1"},
+--        cmd = {"ccls", "--log-file=ccls.log", "-v=1"},
+        cmd = {"ccls"},
         root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".ccls", ".git"),
         init_options = {
+            cache = { directory = "/tmp/.ccls-cache" },
             highlight = { lsRanges = true },
             usePlaceholders = true,
             completeUnimported = true,
