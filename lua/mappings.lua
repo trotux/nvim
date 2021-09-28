@@ -1,6 +1,18 @@
+local inoremap = function(lhs, rhs)
+  vim.api.nvim_set_keymap('i', lhs, rhs, {noremap = true})
+end
+
+local nnoremap = function(lhs, rhs, silent)
+    vim.api.nvim_set_keymap('n', lhs, rhs, {noremap = true, silent = silent})
+end
+
+local nnoremap = function(lhs, rhs)
+    vim.api.nvim_set_keymap('n', lhs, rhs, {noremap = true, silent = true})
+end
+
 -- Tab switch buffer
-vim.api.nvim_set_keymap("n", "<C-n>", ":bnext<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<C-p>", ":bprevious<CR>", { noremap = true, silent = true })
+-- nnoremap('<C-n>', ':bnext<CR>', true)
+-- nnoremap('<C-p>', ':bprevious<CR>', true)
 
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
@@ -36,10 +48,6 @@ _G.s_tab_complete = function()
   end
 end
 
-_G.goto_preview_definition = function()
-    return print("Test")
-end
-
 vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
@@ -53,7 +61,7 @@ vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", { noremap
 
 vim.api.nvim_set_keymap("n", "++", ":CommentToggle<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("v", "++", ":CommentToggle<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<Leader>n", ":tabnew<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>n", ":tabnew<CR>", { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
 vim.api.nvim_set_keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", {noremap=true})
@@ -61,5 +69,15 @@ vim.api.nvim_set_keymap("n", "gP", "<cmd>lua require('goto-preview').close_all_w
 
 vim.api.nvim_set_keymap("n", "<A-Up>", ":resize -2<CR>", { silent = true })
 vim.api.nvim_set_keymap("n", "<A-Down>", ":resize +2<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<A-Left>", ":vertical resize -2<CR>", { silent = true })
-vim.api.nvim_set_keymap("n", "<A-Right>", ":vertical resize +2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<A-Left>", ":vertical resize +2<CR>", { silent = true })
+vim.api.nvim_set_keymap("n", "<A-Right>", ":vertical resize -2<CR>", { silent = true })
+
+-- Map Ctrl-Backspace to delete the previous word in insert mode.
+-- nnoremap('<C-w>', '<C-\\><C-o>dB')
+nnoremap('<C-BS>', 'db')
+
+-- Nvim-Tree
+nnoremap('<leader>nt', ':NvimTreeToggle<CR>')
+nnoremap('<leader>nr', ':NvimTreeRefresh<CR>')
+nnoremap('<leader>nf', ':NvimTreeFindFile<CR>')
+

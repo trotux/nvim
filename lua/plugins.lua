@@ -2,8 +2,6 @@ local execute = vim.api.nvim_command
 local fn = vim.fn
 
 -- Auto install plugin manager
-
--- local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 local install_path = vim.fn.stdpath('data')..'site/pack/packer/opt/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -18,222 +16,174 @@ vim.cmd [[ autocmd BufWritePost plugins.lua PackerCompile ]]
 -- Plugins configurations
 
 return require('packer').startup(
-
   function()
     -- Let packer manage itself
-    use {'wbthomason/packer.nvim'}
+    use {
+      'wbthomason/packer.nvim'
+    }
+
+    use {'axelf4/vim-strip-trailing-whitespace'}
+    use {'kyazdani42/nvim-web-devicons'}
 
     -- Status line
     use {
-        'hoob3rt/lualine.nvim',
-        config = function()
-            require('lualine').setup({
-                options = {
-                theme = 'wombat'
-                }
-            })
-        end
+      'hoob3rt/lualine.nvim',
+      config = require('config.lualine')
     }
 
-  -- Git
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {
-      'nvim-lua/plenary.nvim'
-    },
-    config = function()
-      require('gitsigns').setup({})
-    end
-  }
+    -- Buffer line
+    use {
+      "romgrk/barbar.nvim",
+      requires = {
+        'kyazdani42/nvim-web-devicons'
+      },
+      config = require('config.barbar')
+    }
 
-  use {
-    'APZelos/blamer.nvim',
-    config = function()
-      vim.g.blamer_enabled = 0
-      vim.g.blamer_show_in_visual_modes = 0
-      vim.g.blamer_relative_time = 1
-    end
-  }
+    -- LSP
+    use {
+      'neovim/nvim-lspconfig',
+      config = require('config.lspconfig')
+    }
 
-  -- Comments
-  use {
-    "terrortylor/nvim-comment",
-    cmd = "CommentToggle",
-    config = function()
-      require("nvim_comment").setup()
-    end,
-  }
+    -- LSP goto preview
+    use {
+      'rmagatti/goto-preview',
+      config = require('config.goto-preview')
+    }
 
-  -- Show indent line
-  use {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    setup = function()
-      vim.g.indentLine_enabled = 1
-      vim.g.indent_blankline_char = "▏"
+    -- LSP Colors
+    use {
+      "folke/lsp-colors.nvim",
+      event = "BufRead",
+    }
 
-      vim.g.indent_blankline_filetype_exclude = {
-        "help",
-        "terminal",
-        "dashboard",
-      }
-      vim.g.indent_blankline_buftype_exclude = { "terminal" }
+    -- LSP CXX colors
+    use { "jackguo380/vim-lsp-cxx-highlight" }
 
-      vim.g.indent_blankline_show_trailing_blankline_indent = false
-      vim.g.indent_blankline_show_first_indent_level = true
-    end,
-    disable = false,
-  }
+    -- Show tags based on LSP
+    use {
+      "liuchengxu/vista.vim",
+      config=require('config.vista')
+    }
 
-  use {
-    'editorconfig/editorconfig-vim',
-    event = "BufRead",
-    setup = function()
-      vim.g.EditorConfig_exec_path = '/usr/bin/editorconfig'
-    end,
-  }
+    -- Git
+    use {
+      'lewis6991/gitsigns.nvim',
+      requires = {
+        'nvim-lua/plenary.nvim'
+      },
+      config = require('config.gitsigns')
+    }
 
-  use {'axelf4/vim-strip-trailing-whitespace'}
-  use {
-    'ntpeters/vim-better-whitespace',
-    event = "BufRead",
-    setup = function()
-      vim.g.better_whitespace_skip_empty_lines=0
-    end,
-    disable = false,
-  }
+    -- Git blamer
+    use {
+      'APZelos/blamer.nvim',
+      config = require('config.blamer')
+    }
 
-  use {'kyazdani42/nvim-web-devicons'}
+    -- Comments
+    use {
+      "terrortylor/nvim-comment",
+      cmd = "CommentToggle",
+      config = function()
+        require("nvim_comment").setup()
+      end,
+    }
 
-  -- Buffer line
-  use {
-    "romgrk/barbar.nvim",
-    requires = {
-      'kyazdani42/nvim-web-devicons'
-    },
-    config = require('barbar-config')
-    -- config = function()
-    --   vim.api.nvim_set_keymap("n", "<C-Right>", ":BufferNext<CR>", { noremap = true, silent = true })
-    --   vim.api.nvim_set_keymap("n", "<C-Left>", ":BufferPrevious<CR>", { noremap = true, silent = true })
-    --   vim.api.nvim_set_keymap("n", "<C-Del>", ":BufferClose<CR>", { noremap = true, silent = true })
-    -- end,
-    -- event = "BufRead",
-  }
+    -- Show indent line
+    use {
+      "lukas-reineke/indent-blankline.nvim",
+      event = "BufRead",
+      setup = require('config.indent-blankline'),
+      disable = false,
+    }
 
-  use {'neovim/nvim-lspconfig', config = require('lsp')}
+    use {
+      'editorconfig/editorconfig-vim',
+      event = "BufRead",
+      setup = require('config.editorconfig-vim')
+    }
 
-  -- LSP Colors
-  use {
-    "folke/lsp-colors.nvim",
-    event = "BufRead",
-  }
+    use {
+      'ntpeters/vim-better-whitespace',
+      event = "BufRead",
+      setup = require('config.vim-better-whitespace'),
+      disable = false,
+    }
 
-  use { "jackguo380/vim-lsp-cxx-highlight" }
-
---  use {
---    'm-pilia/vim-ccls',
---   config = function()
---      require('vim-ccls').setup({})
---    end
---  }
-
-  -- Autocomplete
-  use {'hrsh7th/vim-vsnip', config=require('vim-vsnip')}
-  use {
-    "hrsh7th/nvim-compe",
-    requires = {
+    -- Autocomplete
+    use {
       'hrsh7th/vim-vsnip',
-      'hrsh7th/vim-vsnip-integ',
-      'rafamadriz/friendly-snippets',
-    },
-    config = function()
-      require('compe').setup({
-        enabled = true,
-        autocomplete = true,
-        debug = false,
-        min_length = 1,
-        preselect = "enable",
-        throttle_time = 80,
-        source_timeout = 200,
-        incomplete_delay = 400,
-        max_abbr_width = 100,
-        max_kind_width = 100,
-        max_menu_width = 100,
-        documentation = true,
+      config=require('config.vim-vsnip')
+    }
 
-        source = {
-          path = { kind = "   (Path)" },
-          buffer = { kind = "   (Buffer)" },
-          calc = { kind = "   (Calc)" },
-          vsnip = { kind = "   (Snippet)" },
-          nvim_lsp = { kind = "   (LSP)" },
-          -- nvim_lua = {kind = "  "},
-          nvim_lua = false,
-          spell = { kind = "   (Spell)" },
-          tags = false,
-          vim_dadbod_completion = true,
-          -- snippets_nvim = {kind = "  "},
-          -- ultisnips = {kind = "  "},
-          treesitter = {kind = "  "},
-          emoji = { kind = " ﲃ  (Emoji)", filetypes = { "markdown", "text" } },
-          -- for emoji press : (idk if that in compe tho)
-        },
-      })
-    end,
-  }
+    use {
+      "hrsh7th/nvim-compe",
+      requires = {
+        'hrsh7th/vim-vsnip',
+        'hrsh7th/vim-vsnip-integ',
+        'rafamadriz/friendly-snippets',
+      },
+      config=require('config.nvim-compe')
+    }
 
-  -- Treesitter
-  use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+    -- Treesitter
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      run = ":TSUpdate"
+    }
 
-  -- Autopairs
-  use {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    after = { "nvim-compe" },
-    config = function()
-      require "nvim-autopairs"
-    end,
-  }
+    -- Autopairs
+    use {
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      after = { "nvim-compe" },
+      config = function()
+        require('config.nvim-autopairs')
+      end,
+    }
 
-  use {'rhysd/vim-clang-format'}
+    use {'rhysd/vim-clang-format'}
+
+    -- file trees
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = require('config.nvim-tree')
+    }
+
+    -- better LSP UI (for code actions, rename etc.)
+    use {
+      'glepnir/lspsaga.nvim',
+      config=require('config.lspsaga'),
+      disable = true,
+    }
+
+--[[
+
 
   use {
-    "liuchengxu/vista.vim",
+    'm-pilia/vim-ccls',
     config = function()
-        vim.g.vista_cpp_executive = 'nvim_lsp'
-        vim.g.vista_h_executive = 'nvim_lsp'
+      require('vim-ccls').setup({})
     end
   }
 
   use {
-    'rmagatti/goto-preview',
+    'phaazon/hop.nvim',
+    as = 'hop',
     config = function()
-      require('goto-preview').setup {
-        width = 120; -- Width of the floating window
-        height = 15; -- Height of the floating window
-        default_mappings = false; -- Bind default mappings
-        debug = false; -- Print debug information
-        opacity = nil; -- 0-100 opacity level of the floating window where 100 is fully transparent.
-        post_open_hook = nil -- A function taking two arguments, a buffer and a window to be ran as a hook.
-      }
+      -- you can configure Hop the way you like here; see :h hop-config
+      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
     end
   }
-
-  -- use {
-  --   'phaazon/hop.nvim',
-  --   as = 'hop',
-  --   config = function()
-  --     -- you can configure Hop the way you like here; see :h hop-config
-  --     require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-  --   end
-  -- }
 
   use {
     "akinsho/nvim-toggleterm.lua",
     config = function()
       require("toggleterm").setup({
         size = 20,
-        open_mapping = [[<c-\>]],
         hide_numbers = true, -- hide the number column in toggleterm buffers
         shade_filetypes = {},
         shade_terminals = true,
@@ -255,12 +205,10 @@ return require('packer').startup(
     end
   }
 
---  use {"simrat39/symbols-outline.nvim"}
+  use {"simrat39/symbols-outline.nvim"}
 
 -- Ranger
--- use {'kevinhwang91/rnvimr', run = ':make sync'}
-
--- file trees
--- use 'kyazdani42/nvim-tree.lua'
+  use {'kevinhwang91/rnvimr', run = ':make sync'}
+]]--
 
 end)
