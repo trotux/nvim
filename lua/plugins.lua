@@ -64,8 +64,19 @@ return require('packer').startup(
     -- Show tags based on LSP
     use {
       "liuchengxu/vista.vim",
-      config=require('config.vista')
+      config = require('config.vista')
     }
+
+    -- better LSP UI (for code actions, rename etc.)
+    use {
+      'glepnir/lspsaga.nvim',
+      config = require('config.lspsaga'),
+      disable = true,
+    }
+
+    use {'m-pilia/vim-ccls'}
+
+    use {"simrat39/symbols-outline.nvim"}
 
     -- Git
     use {
@@ -86,9 +97,7 @@ return require('packer').startup(
     use {
       "terrortylor/nvim-comment",
       cmd = "CommentToggle",
-      config = function()
-        require("nvim_comment").setup()
-      end,
+      config = require('config.nvim-comment')
     }
 
     -- Show indent line
@@ -115,7 +124,7 @@ return require('packer').startup(
     -- Autocomplete
     use {
       'hrsh7th/vim-vsnip',
-      config=require('config.vim-vsnip')
+      config = require('config.vim-vsnip')
     }
 
     use {
@@ -125,7 +134,7 @@ return require('packer').startup(
         'hrsh7th/vim-vsnip-integ',
         'rafamadriz/friendly-snippets',
       },
-      config=require('config.nvim-compe')
+      config = require('config.nvim-compe')
     }
 
     -- Treesitter
@@ -139,9 +148,7 @@ return require('packer').startup(
       "windwp/nvim-autopairs",
       event = "InsertEnter",
       after = { "nvim-compe" },
-      config = function()
-        require('config.nvim-autopairs')
-      end,
+      config = require('config.nvim-autopairs')
     }
 
     use {'rhysd/vim-clang-format'}
@@ -153,62 +160,22 @@ return require('packer').startup(
       config = require('config.nvim-tree')
     }
 
-    -- better LSP UI (for code actions, rename etc.)
     use {
-      'glepnir/lspsaga.nvim',
-      config=require('config.lspsaga'),
-      disable = true,
+      "akinsho/nvim-toggleterm.lua",
+      config = require('config.nvim-toggleterm')
     }
 
---[[
+    -- Ranger
+    use {
+      'kevinhwang91/rnvimr',
+      run = ':make sync',
+      config = require('config.rnvimr')
+    }
 
-
-  use {
-    'm-pilia/vim-ccls',
-    config = function()
-      require('vim-ccls').setup({})
-    end
-  }
-
-  use {
-    'phaazon/hop.nvim',
-    as = 'hop',
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    end
-  }
-
-  use {
-    "akinsho/nvim-toggleterm.lua",
-    config = function()
-      require("toggleterm").setup({
-        size = 20,
-        hide_numbers = true, -- hide the number column in toggleterm buffers
-        shade_filetypes = {},
-        shade_terminals = true,
-        shading_factor = 2, -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-        start_in_insert = true,
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
-        persist_size = true,
-        direction = 'float',
-        close_on_exit = true, -- close the terminal window when the process exits
-        float_opts = {
-          border = 'curved',
-          winblend = 0,
-          highlights = {
-            border = "Normal",
-            background = "Normal",
-          },
-        },
-      })
-    end
-  }
-
-  use {"simrat39/symbols-outline.nvim"}
-
--- Ranger
-  use {'kevinhwang91/rnvimr', run = ':make sync'}
-]]--
-
-end)
+    use {
+      'phaazon/hop.nvim',
+      as = 'hop',
+      config = require('config.hop')
+    }
+  end
+)
