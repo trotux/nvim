@@ -101,7 +101,7 @@ let s:gray_244          = ['#808080', 244 ]
 
 let s:special_bg1       = ['#5f5f87', 60  ]
 let s:special_bg2       = ['#875f87', 96  ]
-let s:special_red         = ['#800000', 1   ]
+let s:special_red       = ['#800000', 1   ]
 
 " light colors
 let s:light_red         = ['#d78787', 174 ]
@@ -135,10 +135,11 @@ let s:bright_purple     = ['#d3869b', 175 ]
 " determine relative colors
 let s:gray = s:gray_245
 
-let s:color_column      = s:bg1
-let s:color_line        = s:bg1
+let s:color_column      = s:bg3
+let s:color_line        = s:bg0
 let s:sign_column       = s:bg1
 let s:number_column     = s:none
+" let s:cursor_line       = [ '#313640', '237' ]
 
 " }}}
 " Setup Terminal Colors For Neovim: {{{
@@ -306,7 +307,7 @@ if version >= 700
   hi! link TabLine TabLineFill
 
   " Match paired bracket under the cursor
-  call s:HL('MatchParen', s:bg0, s:bright_blue, s:bold)
+  call s:HL('MatchParen', s:bright_blue, s:bg0, s:bold)
 endif
 
 if version >= 703
