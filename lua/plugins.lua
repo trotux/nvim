@@ -75,6 +75,7 @@ return require('packer').startup(
     }
 
     use {'m-pilia/vim-ccls'}
+    use {'roxma/vim-tmux-clipboard'}
 
     use {"simrat39/symbols-outline.nvim"}
 
@@ -151,7 +152,10 @@ return require('packer').startup(
       config = require('config.nvim-autopairs')
     }
 
-    use {'rhysd/vim-clang-format'}
+    use {
+      'rhysd/vim-clang-format',
+      setup = require('config.vim-clang-format')
+    }
 
     -- file trees
     use {
