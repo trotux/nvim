@@ -32,12 +32,21 @@ return require('packer').startup(
     }
 
     -- Buffer line
+--[[
     use {
       "romgrk/barbar.nvim",
       requires = {
         'kyazdani42/nvim-web-devicons'
       },
       config = require('config.barbar')
+    }
+]]--
+    use {
+      "akinsho/bufferline.nvim",
+      requires = {
+        'kyazdani42/nvim-web-devicons'
+      },
+      config = require('config.bufferline')
     }
 
     -- LSP

@@ -14,6 +14,10 @@ end
 -- nnoremap('<C-n>', ':bnext<CR>', true)
 -- nnoremap('<C-p>', ':bprevious<CR>', true)
 
+nnoremap("<C-Right>", ":BufferLineCycleNext<CR>", true)
+nnoremap("<C-Left>", ":BufferLineCyclePrev<CR>", true)
+nnoremap("<C-Del>", ":bd<CR>", true)
+
 local t = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
