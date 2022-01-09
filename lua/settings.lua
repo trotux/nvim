@@ -30,18 +30,18 @@ cmd('let &titleold="' .. TERMINAL .. '"')
 cmd([["set inccommand=split"]])
 cmd([["set iskeyword+=-"]])
 cmd([["set whichwrap+=<,>,[,],h,l"]])
+vim.api.nvim_command('colorscheme mixed')
 
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
 g.mapleader = ';'                         -- change leader to a comma
 -- o.mouse = 'a'                          -- enable mouse support
--- b.swapfile = false                     -- don't use swapfile
+b.swapfile = false                        -- don't use swapfile
 o.backup = false 	                        -- creates a backup file
 o.clipboard = "unnamedplus"               -- allows neovim to access the system clipboard
 o.cmdheight = 2                           -- more space in the neovim command line for displaying messages
-o.colorcolumn = "80"                   -- fix indentline for now
--- o.completeopt = { "menuone", "noselect" }
+o.colorcolumn = "100"                     -- fix indentline for now
 o.conceallevel = 0                        -- so that `` is visible in markdown files
 o.fileencoding = "utf-8"                  -- the encoding written to a file
 o.timeoutlen = 500                        -- time to wait for a mapped sequence to complete (in milliseconds)
