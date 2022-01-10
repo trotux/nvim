@@ -30,7 +30,6 @@ cmd('let &titleold="' .. TERMINAL .. '"')
 cmd([["set inccommand=split"]])
 cmd([["set iskeyword+=-"]])
 cmd([["set whichwrap+=<,>,[,],h,l"]])
-vim.api.nvim_command('colorscheme mixed')
 
 -----------------------------------------------------------
 -- General
