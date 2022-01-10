@@ -215,6 +215,9 @@ return packer.startup(
       config = require('config.numb')
     }
 
+    -- Registers
+    use { 'tversteeg/registers.nvim', keys = { { 'n', '"' }, { 'i', '<c-r>' } } }
+
     use {
       'phaazon/hop.nvim',
       as = 'hop',
