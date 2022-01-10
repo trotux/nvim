@@ -20,3 +20,7 @@ require('colorscheme')
 -------------
 require('plugins')
 
+-------------
+-- Auto commands --
+-------------
+require('autocommands')

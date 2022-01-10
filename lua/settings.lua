@@ -91,10 +91,3 @@ o.number = true 	                        -- set numbered lines
 o.cursorline = true                       -- highlight the current line
 o.signcolumn = "yes"                      -- always show the sign column, otherwise it would shift the text each time
 
--- don't auto commenting new lines
-cmd([[au BufEnter * set fo-=c fo-=r fo-=o]])
-
--- 2 spaces for selected filetypes
-cmd([[
-  autocmd FileType xml,html,xhtml,css,scss,javascript,lua,yaml,yang setlocal shiftwidth=2 tabstop=2
-]])
