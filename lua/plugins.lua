@@ -122,6 +122,14 @@ return packer.startup(
       config = require('config.nvim-comment')
     }
 
+    use {
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end
+    }
+
+
     -- Show indent line
     use {
       "lukas-reineke/indent-blankline.nvim",
