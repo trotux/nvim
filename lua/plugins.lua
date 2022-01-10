@@ -46,8 +46,10 @@ return packer.startup(
       'wbthomason/packer.nvim'
     }
 
-    use {'axelf4/vim-strip-trailing-whitespace'}
-    use {'kyazdani42/nvim-web-devicons'}
+    use { 'nvim-lua/popup.nvim' }
+    use { 'nvim-lua/plenary.nvim' }
+    use { 'axelf4/vim-strip-trailing-whitespace' }
+    use { 'kyazdani42/nvim-web-devicons' }
 
     -- Status line
     use {
