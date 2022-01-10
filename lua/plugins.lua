@@ -1,21 +1,45 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
 
--- Auto install plugin manager
-local install_path = vim.fn.stdpath('data')..'site/pack/packer/opt/packer.nvim'
-
+-- Automatically install packer
+local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute('!git clone https://github.com/wbthomason/packer.nvim '..install_path)
-  execute 'packadd packer.nvim'
+  PACKER_BOOTSTRAP = fn.system {
+    "git",
+    "clone",
+    "--depth",
+    "1",
+    "https://github.com/wbthomason/packer.nvim",
+    install_path,
+  }
+  print "Installing packer close and reopen Neovim..."
+  vim.cmd [[packadd packer.nvim]]
 end
 
-vim.cmd('packadd packer.nvim')
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+vim.cmd [[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]]
 
-vim.cmd [[ autocmd BufWritePost plugins.lua PackerCompile ]]
+-- Use a protected call so we don't error out on first use
+local status_ok, packer = pcall(require, "packer")
+if not status_ok then
+  return
+end
+
+-- Have packer use a popup window
+packer.init {
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "rounded" }
+    end,
+  },
+}
 
 -- Plugins configurations
-
-return require('packer').startup(
+return packer.startup(
   function()
     -- Let packer manage itself
     use {
@@ -31,16 +55,6 @@ return require('packer').startup(
       config = require('config.lualine')
     }
 
-    -- Buffer line
---[[
-    use {
-      "romgrk/barbar.nvim",
-      requires = {
-        'kyazdani42/nvim-web-devicons'
-      },
-      config = require('config.barbar')
-    }
-]]--
     use {
       "akinsho/bufferline.nvim",
       requires = {
@@ -53,6 +67,22 @@ return require('packer').startup(
     use {
       'neovim/nvim-lspconfig',
       config = require('config.lspconfig')
+    }
+
+    use {
+      "filipdutescu/renamer.nvim",
+      config = require('config.renamer')
+    }
+
+    use {
+      "simrat39/symbols-outline.nvim",
+      config = require('config.symbols-outline')
+    }
+    use {'m-pilia/vim-ccls'}
+
+    use {
+      "folke/trouble.nvim",
+      cmd = "TroubleToggle",
     }
 
     -- LSP goto preview
@@ -69,24 +99,6 @@ return require('packer').startup(
 
     -- LSP CXX colors
     use { "jackguo380/vim-lsp-cxx-highlight" }
-
-    -- Show tags based on LSP
-    use {
-      "liuchengxu/vista.vim",
-      config = require('config.vista')
-    }
-
-    -- better LSP UI (for code actions, rename etc.)
-    use {
-      'glepnir/lspsaga.nvim',
-      config = require('config.lspsaga'),
-      disable = true,
-    }
-
-    use {'m-pilia/vim-ccls'}
-    use {'roxma/vim-tmux-clipboard'}
-
-    use {"simrat39/symbols-outline.nvim"}
 
     -- Git
     use {
@@ -158,7 +170,8 @@ return require('packer').startup(
       "windwp/nvim-autopairs",
       event = "InsertEnter",
       after = { "nvim-compe" },
-      config = require('config.nvim-autopairs')
+      config = require('config.nvim-autopairs'),
+      disable = true
     }
 
     use {
@@ -173,16 +186,24 @@ return require('packer').startup(
       config = require('config.nvim-tree')
     }
 
+    -- Terminal
     use {
       "akinsho/nvim-toggleterm.lua",
       config = require('config.nvim-toggleterm')
     }
+
+    use {'roxma/vim-tmux-clipboard'}
 
     -- Ranger
     use {
       'kevinhwang91/rnvimr',
       run = ':make sync',
       config = require('config.rnvimr')
+    }
+
+    use {
+      "nacro90/numb.nvim",
+      config = require('config.numb')
     }
 
     use {

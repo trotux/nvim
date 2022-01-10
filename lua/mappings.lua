@@ -1,5 +1,5 @@
 local inoremap = function(lhs, rhs)
-  vim.api.nvim_set_keymap('i', lhs, rhs, {noremap = true})
+  vim.api.nvim_set_keymap('i', lhs, rhs, {noremap = true, silent = true})
 end
 
 local nnoremap = function(lhs, rhs, silent)
@@ -8,6 +8,10 @@ end
 
 local nnoremap = function(lhs, rhs)
     vim.api.nvim_set_keymap('n', lhs, rhs, {noremap = true, silent = true})
+end
+
+local vnoremap = function(lhs, rhs)
+    vim.api.nvim_set_keymap('v', lhs, rhs, {noremap = true, silent = true})
 end
 
 -- Tab switch buffer
@@ -63,12 +67,12 @@ vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", { noremap = true, 
 vim.api.nvim_set_keymap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", { noremap = true, silent = true, expr = true })
 vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", { noremap = true, silent = true, expr = true })
 
-vim.api.nvim_set_keymap("n", "++", ":CommentToggle<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("v", "++", ":CommentToggle<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", "<leader>n", ":tabnew<CR>", { noremap = true, silent = true })
+nnoremap("++", ":CommentToggle<CR>")
+vnoremap("++", ":CommentToggle<CR>")
+nnoremap("<leader>n", ":tabnew<CR>")
 
-vim.api.nvim_set_keymap("n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
-vim.api.nvim_set_keymap("n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", {noremap=true})
+vim.api.nvim_set_keymap("n", "<C-d>", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
+vim.api.nvim_set_keymap("n", "<C-i>", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", {noremap=true})
 vim.api.nvim_set_keymap("n", "gP", "<cmd>lua require('goto-preview').close_all_win()<CR>", {noremap=true})
 
 vim.api.nvim_set_keymap("n", "<A-Up>", ":resize -2<CR>", { silent = true })
@@ -79,6 +83,22 @@ vim.api.nvim_set_keymap("n", "<A-Right>", ":vertical resize -2<CR>", { silent = 
 -- Map Ctrl-Backspace to delete the previous word in insert mode.
 -- nnoremap('<C-w>', '<C-\\><C-o>dB')
 nnoremap('<C-BS>', 'db')
+
+nnoremap('<C-\\>', '<cmd>SymbolsOutline<CR>')
+
+-- Trouble plugin
+nnoremap("<leader>xx", "<cmd>Trouble<CR>")
+nnoremap("<C-e>", "<cmd>Trouble<CR>")
+nnoremap("<leader>xw", "<cmd>Trouble workspace_diagnostics<CR>")
+nnoremap("<leader>xd", "<cmd>Trouble document_diagnostics<CR>")
+nnoremap("<leader>xl", "<cmd>Trouble loclist<CR>")
+nnoremap("<leader>xq", "<cmd>Trouble quickfix<CR>")
+nnoremap("gR", "<cmd>Trouble lsp_references<CR>")
+nnoremap("<F3>", "<cmd>Trouble lsp_references<CR>")
+
+-- Renamer plugin
+inoremap("<F2>", '<cmd>lua require("renamer").rename({empty = false})<CR>')
+nnoremap("<F2>", '<cmd>lua require("renamer").rename({empty = false})<CR>');
 
 -- Nvim-Tree
 nnoremap('<leader>nt', ':NvimTreeToggle<CR>')

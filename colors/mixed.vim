@@ -275,7 +275,6 @@ call s:HL('MixedLightYellow', s:light_yellow)
 call s:HL('MixedLightAqua', s:light_aqua)
 
 call s:HL('MixedLightBlueBold', s:light_blue, s:none, s:bold)
-
 call s:HL('MixedBrightGreen', s:bright_green)
 
 " }}}
@@ -348,6 +347,8 @@ hi! link Directory MixedNormalGreenBold
 
 " Titles for output from :set all, :autocmd, etc.
 hi! link Title MixedNormalGreenBold
+
+hi! link FocusedSymbol Visual
 
 " Error messages on the command line
 call s:HL('ErrorMsg',   s:light_yellow, s:normal_red)
@@ -458,6 +459,16 @@ hi! link Typedef MixedLightBlue
 call s:HL('Ignore', s:fg4)
 hi! link Special MixedLightRed
 
+hi! link LspReferenceRead Visual
+hi! link LspReferenceText Visual
+hi! link LspReferenceWrite Visual
+
+hi! link RenamerNormal Pmenu
+hi! link RenamerBorder RenamerNormal
+hi! link RenamerTitle Identifier
+
+hi! link SymbolsOutlineConnector Visual
+
 "}}}
 " Completion Menu: {{{
 
@@ -473,6 +484,7 @@ if version >= 700
 endif
 
 " }}}
+
 " Diffs: {{{
 
 call s:HL('DiffDelete', s:normal_red, s:bg0, s:inverse)
