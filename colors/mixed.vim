@@ -24,6 +24,7 @@ if !(has('termguicolors') && &termguicolors) && !has('gui_running') && &t_Co != 
 endif
 
 " }}}
+
 " Global Settings: {{{
 
 if !exists('g:mixed_guisp_fallback') || index(['fg', 'bg'], g:mixed_guisp_fallback) == -1
@@ -46,35 +47,16 @@ let s:is_dark=(&background == 'dark')
 " Setup Emphasis: {{{
 
 let s:bold = 'bold,'
-"if g:xoria256_bold == 0
-  "let s:bold = ''
-"endif
-
 let s:italic = 'italic,'
-"if g:xoria256_italic == 0
-  "let s:italic = ''
-"endif
-
 let s:underline = 'underline,'
-"if g:xoria256_underline == 0
-  "let s:underline = ''
-"endif
-
 let s:undercurl = 'undercurl,'
-"if g:xoria256_undercurl == 0
-  "let s:undercurl = ''
-"endif
-
 let s:inverse = 'inverse,'
-"if g:xoria256_inverse == 0
-  "let s:inverse = ''
-"endif
-
 let s:invert_tabline = ''
 let s:italicize_comments = ''
 let s:invert_signs = s:inverse
 
 " }}}
+
 " Setup Colors: {{{
 
 let s:vim_bg = ['bg', 'bg']
@@ -171,6 +153,7 @@ if has('nvim')
 endif
 
 " }}}
+
 " Highlighting Function: {{{
 
 function! s:HL(group, fg, ...)
@@ -220,6 +203,7 @@ function! s:HL(group, fg, ...)
 endfunction
 
 " }}}
+
 " Mixed Hi Groups: {{{
 
 " memoize common hi groups
@@ -280,6 +264,7 @@ call s:HL('MixedBrightGreen', s:bright_green)
 " }}}
 
 " Vanilla colorscheme ---------------------------------------------------------
+
 " General UI: {{{
 
 " Normal text
@@ -364,6 +349,7 @@ hi! link Question MixedLightBrown
 hi! link WarningMsg MixedNormalRedBold
 
 " }}}
+
 " Gutter: {{{
 
 " Line number for :number and :# commands
@@ -379,11 +365,11 @@ call s:HL('FoldColumn', s:fg3, s:bg1)
 let s:number_column = s:none
 
 " }}}
+
 " Cursor: {{{
 
 " Character under cursor
 call s:HL('Cursor', s:none, s:none, s:inverse)
-" call s:HL('Cursor', s:none, s:cursor)
 " Visual mode cursor, selection
 hi! link vCursor Cursor
 " Input moder cursor
@@ -392,11 +378,13 @@ hi! link iCursor Cursor
 hi! link lCursor Cursor
 
 " }}}
+
 " Syntax Highlighting: {{{
 
 call s:HL('Comment', s:gray, s:none, s:italicize_comments)
 call s:HL('Todo', s:vim_fg, s:vim_bg, s:bold . s:italic)
 call s:HL('Error', s:normal_red, s:vim_bg, s:bold . s:inverse)
+call s:HL('Ignore', s:fg4)
 
 " Generic statement
 hi! link Statement MixedLightRed
@@ -456,20 +444,14 @@ hi! link Structure MixedNormalBlue
 " typedef
 hi! link Typedef MixedLightBlue
 
-call s:HL('Ignore', s:fg4)
 hi! link Special MixedLightRed
 
 hi! link LspReferenceRead Visual
 hi! link LspReferenceText Visual
 hi! link LspReferenceWrite Visual
 
-hi! link RenamerNormal Pmenu
-hi! link RenamerBorder RenamerNormal
-hi! link RenamerTitle Identifier
-
-hi! link SymbolsOutlineConnector Visual
-
 "}}}
+
 " Completion Menu: {{{
 
 if version >= 700
@@ -497,6 +479,7 @@ call s:HL('DiffChange', s:normal_aqua, s:bg0, s:inverse)
 call s:HL('DiffText',   s:normal_yellow, s:bg0, s:inverse)
 
 " }}}
+
 " Spelling: {{{
 
 if has("spell")
@@ -513,6 +496,7 @@ endif
 " }}}
 
 " Plugin specific -------------------------------------------------------------
+
 " GitGutter: {{{
 
 hi! link GitGutterAdd MixedLightGreenSign
@@ -521,56 +505,30 @@ hi! link GitGutterDelete MixedLightRedSign
 hi! link GitGutterChangeDelete MixedNormalAquaSign
 
 " }}}
-" NERDTree: {{{
 
-hi! link NERDTreeDir MixedNormalAqua
-hi! link NERDTreeDirSlash MixedNormalAqua
+" Renamer: {{{
 
-hi! link NERDTreeOpenable MixedNormalOrange
-hi! link NERDTreeClosable MixedNormalOrange
-
-hi! link NERDTreeFile MixedFg1
-hi! link NERDTreeExecFile MixedNormalYellow
-
-hi! link NERDTreeUp MixedGray
-hi! link NERDTreeCWD MixedNormalGreen
-hi! link NERDTreeHelp MixedFg1
-
-hi! link NERDTreeToggleOn MixedNormalGreen
-hi! link NERDTreeToggleOff MixedNormalRed
+hi! link RenamerNormal Pmenu
+hi! link RenamerBorder RenamerNormal
+hi! link RenamerTitle Identifier
 
 " }}}
+
+" SymbolsOutline: {{{
+
+hi! link SymbolsOutlineConnector Visual
+
+" }}}
+
 " Vim Multiple Cursors: {{{
 
 call s:HL('multiple_cursors_cursor', s:none, s:none, s:inverse)
 call s:HL('multiple_cursors_visual', s:none, s:bg2)
 
 " }}}
-" coc.nvim: {{{
 
-hi! link CocErrorSign MixedNormalRedSign
-hi! link CocWarningSign MixedNormalOrangeSign
-hi! link CocInfoSign MixedNormalYellowSign
-hi! link CocHintSign MixedNormalBlueSign
-hi! link CocErrorFloat MixedNormalRed
-hi! link CocWarningFloat MixedNormalOrange
-hi! link CocInfoFloat MixedNormalYellow
-hi! link CocHintFloat MixedNormalBlue
-hi! link CocDiagnosticsError MixedNormalRed
-hi! link CocDiagnosticsWarning MixedNormalOrange
-hi! link CocDiagnosticsInfo MixedNormalYellow
-hi! link CocDiagnosticsHint MixedNormalBlue
-
-hi! link CocSelectedText MixedNormalRed
-hi! link CocCodeLens MixedGray
-
-call s:HL('CocErrorHighlight', s:none, s:none, s:undercurl, s:normal_red)
-call s:HL('CocWarningHighlight', s:none, s:none, s:undercurl, s:normal_orange)
-call s:HL('CocInfoHighlight', s:none, s:none, s:undercurl, s:normal_yellow)
-call s:HL('CocHintHighlight', s:none, s:none, s:undercurl, s:normal_blue)
-
-" }}}
 " Filetype specific -----------------------------------------------------------
+
 " C: {{{
 
 hi! link cOperator  MixedNormalPurple
@@ -579,6 +537,7 @@ hi! link cStatement MixedLightRed
 hi! link cConstant MixedNormalGreen
 
 " }}}
+
 " CPP: {{{
 
 hi! link cppStatement MixedNormalRed
@@ -586,6 +545,7 @@ hi! link cppAccess MixedLightRed
 hi! link cppSTLnamespace MixedLightYellow
 
 " }}}
+
 " Vim: {{{
 
 call s:HL('vimCommentTitle', s:normal_aqua, s:none, s:bold . s:italicize_comments)
@@ -602,89 +562,3 @@ hi! link vimContinue MixedFg3
 
 " }}}
 
-" Other -----------------------------------------------------------------------
-" hi Comment      ctermfg=244 guifg=#808080
-" stings
-" hi Constant     ctermfg=229 guifg=#ffffaf
-" hi Identifier   ctermfg=182 guifg=#dfafdf                           cterm=none
-" hi Ignore       ctermfg=238 guifg=#444444
-" hi Number       ctermfg=180 guifg=#dfaf87
-" hi PreProc      ctermfg=150 guifg=#afdf87
-" hi Special      ctermfg=174 guifg=#df8787
-" hi Statement    ctermfg=110 guifg=#87afdf                           cterm=none gui=none
-" hi Type         ctermfg=146 guifg=#afafdf                           cterm=none gui=none
-"hi Error        ctermfg=15  guifg=#ffffff ctermbg=1   guibg=#800000
-"hi ErrorMsg     ctermfg=15  guifg=#ffffff ctermbg=1   guibg=#800000
-"hi FoldColumn   ctermfg=247 guifg=#9e9e9e ctermbg=233 guibg=#121212
-"hi Folded       ctermfg=255 guifg=#eeeeee ctermbg=60  guibg=#5f5f87
-"hi IncSearch    ctermfg=0   guifg=#000000 ctermbg=223 guibg=#ffdfaf cterm=none gui=none
-" hi LineNr       ctermfg=247 guifg=#9e9e9e ctermbg=233 guibg=#121212
-"hi MatchParen   ctermfg=188 guifg=#dfdfdf ctermbg=68  guibg=#5f87df cterm=bold gui=bold
-" TODO
-" hi MoreMsg
-
-"hi SignColumn   ctermfg=248 guifg=#a8a8a8
-"hi SpellBad     ctermfg=160 guifg=fg      ctermbg=bg                cterm=underline               guisp=#df0000
-"hi SpellCap     ctermfg=189 guifg=#dfdfff ctermbg=bg  guibg=bg      cterm=underline gui=underline
-"hi SpellRare    ctermfg=168 guifg=#df5f87 ctermbg=bg  guibg=bg      cterm=underline gui=underline
-"hi SpellLocal   ctermfg=98  guifg=#875fdf ctermbg=bg  guibg=bg      cterm=underline gui=underline
-" hi StatusLine   ctermfg=15  guifg=#ffffff ctermbg=239 guibg=#4e4e4e cterm=bold gui=bold
-" hi StatusLineNC ctermfg=249 guifg=#b2b2b2 ctermbg=237 guibg=#3a3a3a cterm=none gui=none
-"hi TabLine      ctermfg=fg  guifg=fg      ctermbg=242 guibg=#666666 cterm=none gui=none
-"hi TabLineFill  ctermfg=fg  guifg=fg      ctermbg=237 guibg=#3a3a3a cterm=none gui=none
-" FIXME
-" hi Title        ctermfg=225 guifg=#ffdfff
-" hi Todo         ctermfg=0   guifg=#000000 ctermbg=184 guibg=#dfdf00
-" hi Underlined   ctermfg=39  guifg=#00afff                           cterm=underline gui=underline
-"hi VertSplit    ctermfg=237 guifg=#3a3a3a ctermbg=237 guibg=#3a3a3a cterm=none gui=none
-" hi VIsualNOS    ctermfg=24  guifg=#005f87 ctermbg=153 guibg=#afdfff cterm=none gui=none
-" hi Visual       ctermfg=24  guifg=#005f87 ctermbg=153 guibg=#afdfff
-"hi Visual       ctermfg=255 guifg=#eeeeee ctermbg=96  guibg=#875f87
-" hi Visual       ctermfg=255 guifg=#eeeeee ctermbg=24  guibg=#005f87
-"hi VisualNOS    ctermfg=255 guifg=#eeeeee ctermbg=60  guibg=#5f5f87
-" hi WildMenu     ctermfg=0   guifg=#000000 ctermbg=150 guibg=#afdf87 cterm=bold gui=bold
-" Special {{{
-
-"" .diff {{{2
-""hi diffAdded    ctermfg=150 guifg=#afdf87
-""hi diffRemoved  ctermfg=174 guifg=#df8787
-"" }}}
-
-"" vimdiff {{{2
-"hi diffAdd      ctermfg=bg  guifg=bg      ctermbg=151 guibg=#afdfaf
-""hi diffDelete   ctermfg=bg  guifg=bg      ctermbg=186 guibg=#dfdf87 cterm=none gui=none
-"hi diffDelete   ctermfg=bg  guifg=bg      ctermbg=246 guibg=#949494 cterm=none gui=none
-"hi diffChange   ctermfg=bg  guifg=bg      ctermbg=181 guibg=#dfafaf
-"hi diffText     ctermfg=bg  guifg=bg      ctermbg=174 guibg=#df8787 cterm=none gui=none
-"" }}}
-
-"" python {{{2
-"hi pythonExceptions ctermfg=174
-"" }}}
-
-"" NERDTree {{{2
-"hi Directory      ctermfg=110  guifg=#87afdf
-"hi treeCWD        ctermfg=180  guifg=#dfaf87
-"hi treeClosable   ctermfg=174  guifg=#df8787
-"hi treeOpenable   ctermfg=150  guifg=#afdf87
-"hi treePart       ctermfg=244  guifg=#808080
-"hi treeDirSlash   ctermfg=244  guifg=#808080
-"hi treeLink       ctermfg=182  guifg=#dfafdf
-"" }}}
-"" VimDebug {{{2
-" FIXME
-" you may want to set SignColumn highlight in your .vimrc
-" :help sign
-" :help SignColumn
-
-" hi currentLine term=reverse cterm=reverse gui=reverse
-" hi breakPoint  term=NONE    cterm=NONE    gui=NONE
-" hi empty       term=NONE    cterm=NONE    gui=NONE
-
-" sign define currentLine linehl=currentLine
-" sign define breakPoint  linehl=breakPoint  text=>>
-" sign define both        linehl=currentLine text=>>
-" sign define empty       linehl=empty
-"" }}}
-
-" }}}
