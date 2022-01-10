@@ -131,7 +131,6 @@ return packer.startup(
       end
     }
 
-
     -- Show indent line
     use {
       "lukas-reineke/indent-blankline.nvim",
