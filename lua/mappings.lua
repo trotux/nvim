@@ -20,6 +20,8 @@ end
 
 nnoremap("<C-Right>", ":BufferLineCycleNext<CR>", true)
 nnoremap("<C-Left>", ":BufferLineCyclePrev<CR>", true)
+nnoremap("<C-n>", ":BufferLineCycleNext<CR>", true)
+nnoremap("<C-p>", ":BufferLineCyclePrev<CR>", true)
 nnoremap("<C-Del>", ":bd<CR>", true)
 
 local t = function(str)
@@ -70,6 +72,7 @@ vim.api.nvim_set_keymap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", { noremap
 nnoremap("++", ":CommentToggle<CR>")
 vnoremap("++", ":CommentToggle<CR>")
 nnoremap("<leader>n", ":tabnew<CR>")
+nnoremap("<leader>tt", "<Cmd>ToggleTerm<CR>")
 
 vim.api.nvim_set_keymap("n", "<C-d>", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
 vim.api.nvim_set_keymap("n", "<C-i>", "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", {noremap=true})
@@ -101,7 +104,7 @@ inoremap("<F2>", '<cmd>lua require("renamer").rename({empty = false})<CR>')
 nnoremap("<F2>", '<cmd>lua require("renamer").rename({empty = false})<CR>');
 
 -- Nvim-Tree
-nnoremap('<leader>nt', ':NvimTreeToggle<CR>')
-nnoremap('<leader>nr', ':NvimTreeRefresh<CR>')
-nnoremap('<leader>nf', ':NvimTreeFindFile<CR>')
+nnoremap('<leader>tn', ':NvimTreeToggle<CR>')
+nnoremap('<leader>tr', ':NvimTreeRefresh<CR>')
+nnoremap('<leader>tf', ':NvimTreeFindFile<CR>')
 
