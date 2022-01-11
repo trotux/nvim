@@ -203,15 +203,15 @@ return packer.startup(
 
     use {'roxma/vim-tmux-clipboard'}
 
-    -- Ranger
+    -- Notification
     use {
-      'kevinhwang91/rnvimr',
-      run = ':make sync',
-      config = require('config.rnvimr')
+      'rcarriga/nvim-notify',
+      config = require('config.nvim-notify')
     }
 
+    -- Jump to line number
     use {
-      "nacro90/numb.nvim",
+      'nacro90/numb.nvim',
       config = require('config.numb')
     }
 
@@ -223,5 +223,16 @@ return packer.startup(
       as = 'hop',
       config = require('config.hop')
     }
+
+      -- Telescope
+    use {
+      'nvim-telescope/telescope.nvim',
+      config = require('config.telescope')
+    }
+
+    use { 'tom-anders/telescope-vim-bookmarks.nvim' }
+    use { 'nvim-telescope/telescope-media-files.nvim' }
+    use { 'nvim-telescope/telescope-ui-select.nvim' }
+
   end
 )
