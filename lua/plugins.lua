@@ -227,7 +227,12 @@ return packer.startup(
       config = require('config.hop')
     }
 
-      -- Telescope
+    -- VimWiki
+    use {
+      'vimwiki/vimwiki'
+    }
+
+    -- Telescope
     use {
       'nvim-telescope/telescope.nvim',
       config = require('config.telescope')
