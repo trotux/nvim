@@ -58,7 +58,7 @@ return packer.startup(
     }
 
     use {
-      "akinsho/bufferline.nvim",
+      'akinsho/bufferline.nvim',
       requires = {
         'kyazdani42/nvim-web-devicons'
       },
@@ -72,19 +72,19 @@ return packer.startup(
     }
 
     use {
-      "filipdutescu/renamer.nvim",
+      'filipdutescu/renamer.nvim',
       config = require('config.renamer')
     }
 
     use {
-      "simrat39/symbols-outline.nvim",
+      'simrat39/symbols-outline.nvim',
       config = require('config.symbols-outline')
     }
     use {'m-pilia/vim-ccls'}
 
     use {
-      "folke/trouble.nvim",
-      cmd = "TroubleToggle",
+      'folke/trouble.nvim',
+      cmd = 'TroubleToggle',
     }
 
     -- LSP goto preview
@@ -95,12 +95,12 @@ return packer.startup(
 
     -- LSP Colors
     use {
-      "folke/lsp-colors.nvim",
+      'folke/lsp-colors.nvim',
       event = "BufRead",
     }
 
     -- LSP CXX colors
-    use { "jackguo380/vim-lsp-cxx-highlight" }
+    use { 'jackguo380/vim-lsp-cxx-highlight' }
 
     -- Tagbar
     use {'preservim/tagbar'}
@@ -122,7 +122,7 @@ return packer.startup(
 
     -- Comments
     use {
-      "terrortylor/nvim-comment",
+      'terrortylor/nvim-comment',
       cmd = "CommentToggle",
       config = require('config.nvim-comment')
     }
@@ -136,8 +136,8 @@ return packer.startup(
 
     -- Show indent line
     use {
-      "lukas-reineke/indent-blankline.nvim",
-      event = "BufRead",
+      'lukas-reineke/indent-blankline.nvim',
+      event = 'BufRead',
       setup = require('config.indent-blankline'),
       disable = false,
     }
@@ -150,7 +150,7 @@ return packer.startup(
 
     use {
       'ntpeters/vim-better-whitespace',
-      event = "BufRead",
+      event = 'BufRead',
       setup = require('config.vim-better-whitespace'),
       disable = false,
     }
@@ -162,7 +162,7 @@ return packer.startup(
     }
 
     use {
-      "hrsh7th/nvim-compe",
+      'hrsh7th/nvim-compe',
       requires = {
         'hrsh7th/vim-vsnip',
         'hrsh7th/vim-vsnip-integ',
@@ -173,13 +173,13 @@ return packer.startup(
 
     -- Treesitter
     use {
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate"
+      'nvim-treesitter/nvim-treesitter',
+      run = ":TSUpdate c cpp"
     }
 
     -- Autopairs
     use {
-      "windwp/nvim-autopairs",
+      'windwp/nvim-autopairs',
       event = "InsertEnter",
       after = { "nvim-compe" },
       config = require('config.nvim-autopairs'),
@@ -200,7 +200,7 @@ return packer.startup(
 
     -- Terminal
     use {
-      "akinsho/nvim-toggleterm.lua",
+      'akinsho/nvim-toggleterm.lua',
       config = require('config.nvim-toggleterm')
     }
 
