@@ -102,6 +102,9 @@ return packer.startup(
     -- LSP CXX colors
     use { "jackguo380/vim-lsp-cxx-highlight" }
 
+    -- Tagbar
+    use {'preservim/tagbar'}
+
     -- Git
     use {
       'lewis6991/gitsigns.nvim',
