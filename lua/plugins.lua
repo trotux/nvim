@@ -53,7 +53,7 @@ return packer.startup(
 
     -- Status line
     use {
-      'hoob3rt/lualine.nvim',
+      'nvim-lualine/lualine.nvim',
       config = require('config.lualine')
     }
 
