@@ -98,5 +98,7 @@ return function()
 
   require('telescope').load_extension('media_files')
   require('telescope').load_extension('ui-select')
+  require('telescope').load_extension('vimwiki')
+  require('telescope').load_extension('packer')
 
 end

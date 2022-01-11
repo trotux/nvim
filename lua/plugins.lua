@@ -241,6 +241,8 @@ return packer.startup(
     use { 'tom-anders/telescope-vim-bookmarks.nvim' }
     use { 'nvim-telescope/telescope-media-files.nvim' }
     use { 'nvim-telescope/telescope-ui-select.nvim' }
+    use { 'nvim-telescope/telescope-packer.nvim' }
+    use { 'ElPiloto/telescope-vimwiki.nvim' }
 
   end
 )
