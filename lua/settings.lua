@@ -54,6 +54,7 @@ o.pumheight = 10                          -- pop up menu height
 o.hlsearch = true                         -- highlight all matches on previous search pattern
 o.ignorecase = true                       -- ignore case in search patterns
 o.textwidth = 80
+vim.opt.listchars = { space = '_', tab = '>~' }
 
 -----------------------------------------------------------
 -- Autocompletion
