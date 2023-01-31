@@ -59,7 +59,7 @@ vim.opt.listchars = { space = '_', tab = '>~' }
 -----------------------------------------------------------
 -- Autocompletion
 -----------------------------------------------------------
-o.completeopt = 'menuone,noselect,noinsert' -- completion options
+o.completeopt = 'menuone,noselect,noinsert,preview' -- completion options
 o.shortmess = 'c' 	-- don't show completion messages
 
 -----------------------------------------------------------
