@@ -45,9 +45,13 @@ return function()
     buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   end
 
+    -- Set up lspconfig.
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-   lspconfig.ccls.setup {
+    lspconfig.ccls.setup {
         on_attach = on_attach,
+        capabilities = capabilities,
+--[[
         capabilities = {
           textDocument = {
             completion = {
@@ -57,17 +61,19 @@ return function()
             }
           }
         },
---        cmd = {"ccls", "--log-file=ccls.log", "-v=1"},
+]]--
+        --cmd = {"ccls", "--log-file=ccls.log", "-v=1"},
         cmd = {"ccls"},
         root_dir = util.root_pattern("compile_commands.json", "compile_flags.txt", ".ccls", ".git"),
         init_options = {
+            completion = {
+              placeholder = false,
+            },
             cache = { directory = "/tmp/.ccls-cache" },
             highlight = { lsRanges = true },
-            usePlaceholders = true,
+            usePlaceholders = false,
             completeUnimported = true,
             clangdFileStatus = true
         }
      }
-
-
 end
